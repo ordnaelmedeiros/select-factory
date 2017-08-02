@@ -1,6 +1,7 @@
 package com.medeiros.ordnael.selectfactorygenerator;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,47 @@ public class SelectGenerator {
 			File fileSelectImpl = new File(filePathGenerate+"/impl/"+class1.getSimpleName().toLowerCase()+"/Select"+class1.getSimpleName()+"Impl.java");
 			try {
 				fileSelectImpl.createNewFile();
+				FileWriter fileWriter = new FileWriter(fileSelectImpl);
+				
+				fileWriter.write("package "+javaPathName+".impl."+class1.getSimpleName().toLowerCase()+";\n\n");
+				fileWriter.write("public class Select"+class1.getSimpleName()+"Impl {\n\n");
+				
+				
+				
+				fileWriter.write("}");
+				
+				fileWriter.close();
+				
 			} catch (IOException e) {
+			}
+			
+		}
+		
+		for (Class<?> class1 : this.listClass) {
+			
+			File pkgs = new File(filePathGenerate+"/select/"+class1.getSimpleName().toLowerCase());
+			pkgs.mkdirs();
+			File fileSelectImpl = new File(filePathGenerate+"/select/"+class1.getSimpleName().toLowerCase()+"/Select"+class1.getSimpleName()+".java");
+			
+			if (!fileSelectImpl.exists()) {
+			
+				try {
+					fileSelectImpl.createNewFile();
+					FileWriter fileWriter = new FileWriter(fileSelectImpl);
+					
+					fileWriter.write("package "+javaPathName+".select."+class1.getSimpleName().toLowerCase()+";\n\n");
+					
+					fileWriter.write("import "+javaPathName+".impl."+class1.getSimpleName().toLowerCase()+".Select"+class1.getSimpleName()+"Impl;\n\n");
+					
+					fileWriter.write("public class Select"+class1.getSimpleName()+" extends Select"+class1.getSimpleName()+"Impl {\n\n");
+					
+					fileWriter.write("}");
+					
+					fileWriter.close();
+					
+				} catch (IOException e) {
+				}
+				
 			}
 			
 		}
