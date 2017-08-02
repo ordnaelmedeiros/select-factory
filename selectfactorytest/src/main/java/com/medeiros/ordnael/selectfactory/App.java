@@ -1,26 +1,19 @@
 package com.medeiros.ordnael.selectfactory;
 
-import static com.medeiros.ordnael.selectfactory.select.pessoa.SelectPessoa.ID;
-import static com.medeiros.ordnael.selectfactory.select.pessoa.SelectPessoa.NOME;
-
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Table;
-
-import com.medeiros.ordnael.selectfactory.database.EntityManagerUtil;
-import com.medeiros.ordnael.selectfactory.database.SearchClass;
-import com.medeiros.ordnael.selectfactory.database.entitys.Endereco;
-import com.medeiros.ordnael.selectfactory.database.entitys.Pessoa;
-import com.medeiros.ordnael.selectfactory.select.endereco.SelectEndereco;
-import com.medeiros.ordnael.selectfactory.select.pessoa.SelectPessoa;
+import com.medeiros.ordnael.selectfactorygenerator.SelectGenerator;
 
 public class App {
 
 	public static void main(String[] args) {
 		
 		System.out.println("Hello World!");
-
+		
+		new SelectGenerator(
+				"C:/GitHub/ordnaelmedeiros/select-factory/selectfactorytest/src/main/java/com/medeiros/ordnael/selectfactory/database/entitys",
+				"C:/GitHub/ordnaelmedeiros/select-factory/selectfactorytest/src/main/java/com/medeiros/ordnael/selectfactory/generated",
+				"com.medeiros.ordnael.selectfactory.generated").execute();
+		
+		/*
 		try {
 			
 			EntityManager em = new EntityManagerUtil().getEntityManager();
@@ -62,6 +55,6 @@ public class App {
 		}
 		
 		System.out.println("Final");
-
+		*/
 	}
 }
