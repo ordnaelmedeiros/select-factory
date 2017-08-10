@@ -3,8 +3,14 @@ package com.medeiros.ordnael.selectfactorygenerator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.JoinColumn;
+
+//
+
 
 public class SelectGenerator {
 	
@@ -46,9 +52,53 @@ public class SelectGenerator {
 				FileWriter fileWriter = new FileWriter(fileSelectImpl);
 				
 				fileWriter.write("package "+javaPathName+".impl."+class1.getSimpleName().toLowerCase()+";\n\n");
-				fileWriter.write("public class Select"+class1.getSimpleName()+"Impl {\n\n");
+				
+				fileWriter.write("import javax.persistence.EntityManager;\n");
+				fileWriter.write("import com.medeiros.ordnael.selectfactorycore.select.SelectTable;\n");
+				fileWriter.write("import com.medeiros.ordnael.selectfactorycore.select.SelectField;\n");
+				fileWriter.write("import "+class1.getCanonicalName()+";\n");
+				fileWriter.write("import "+javaPathName+".select."+class1.getSimpleName().toLowerCase()+".Select"+class1.getSimpleName()+";\n\n");
 				
 				
+				fileWriter.write("public abstract class Select"+class1.getSimpleName()+"Impl extends SelectTable<"+class1.getSimpleName()+", Select"+class1.getSimpleName()+"> {\n\n");
+				
+				String strFields = null;
+				
+				for (Field field : class1.getDeclaredFields()) {
+					
+					String fieldName = field.getName();
+					String fieldType = field.getType().getSimpleName();
+					
+					JoinColumn joinAnnotation = field.getAnnotation(JoinColumn.class);
+					if (joinAnnotation!=null && joinAnnotation.name()!=null) {
+						fieldName = joinAnnotation.name();
+						fieldType = "Long";
+					}
+					
+					
+					fileWriter.write("	public static SelectField<"+fieldType+"> "+fieldName.toUpperCase()+" = new SelectField<>(\""+fieldName+"\");\n");
+					if (strFields!=null) {
+						strFields += "," + fieldName.toUpperCase();
+					} else {
+						strFields = fieldName.toUpperCase();
+					}
+					
+				}
+				
+				fileWriter.write("	public static SelectField<?>[] ALL =  {"+strFields+"};");
+				
+				/*
+				public static SelectField<Long> ID = new SelectField<Long>("id");
+				public static SelectField<String> NOME = new SelectField<String>("nome");
+				*/
+				
+				fileWriter.write("\n	public Select"+class1.getSimpleName()+"Impl(EntityManager em) {\n");
+				fileWriter.write("		super(em);\n");
+				fileWriter.write("	}\n\n");
+				
+				fileWriter.write("	protected Class<"+class1.getSimpleName()+"> getTableClass() {\n");
+				fileWriter.write("		return "+class1.getSimpleName()+".class;\n");
+				fileWriter.write("	}\n\n");
 				
 				fileWriter.write("}");
 				
@@ -72,10 +122,18 @@ public class SelectGenerator {
 					FileWriter fileWriter = new FileWriter(fileSelectImpl);
 					
 					fileWriter.write("package "+javaPathName+".select."+class1.getSimpleName().toLowerCase()+";\n\n");
-					
+					fileWriter.write("import javax.persistence.EntityManager;\n");
 					fileWriter.write("import "+javaPathName+".impl."+class1.getSimpleName().toLowerCase()+".Select"+class1.getSimpleName()+"Impl;\n\n");
 					
 					fileWriter.write("public class Select"+class1.getSimpleName()+" extends Select"+class1.getSimpleName()+"Impl {\n\n");
+					
+					fileWriter.write("	public Select"+class1.getSimpleName()+"(EntityManager em) {\n");
+					fileWriter.write("		super(em);\n");
+					fileWriter.write("	}\n\n");
+					
+					fileWriter.write("	protected Select"+class1.getSimpleName()+" getThis() {\n");
+					fileWriter.write("		return this;\n");
+					fileWriter.write("	}\n\n");
 					
 					fileWriter.write("}");
 					

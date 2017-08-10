@@ -29,7 +29,7 @@ public class SelectPessoa extends SelectTable {
 		this.addJoin(joinTable);
 		return this;
 	}
-
+	
 	@Override
 	public String getTableName() {
 		return "pessoa";

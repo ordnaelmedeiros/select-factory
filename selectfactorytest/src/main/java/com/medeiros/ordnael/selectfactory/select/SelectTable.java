@@ -14,11 +14,11 @@ public abstract class SelectTable {
 	private WhereField<?>[] wheres;
 	private List<JoinTable> joins = new ArrayList<>();
 	
+	public abstract String getTableName();
+	
 	public SelectField<?>[] getCampos() {
 		return campos;
 	}
-	
-	public abstract String getTableName();
 	
 	public SelectTable(EntityManager em, SelectField<?> ...campos) {
 		this.setEm(em);
