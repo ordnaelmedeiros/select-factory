@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.medeiros.ordnael.selectfactory.database.entitys.Endereco;
 import com.medeiros.ordnael.selectfactory.database.entitys.Pessoa;
+import com.medeiros.ordnael.selectfactory.database.entitys.Telefone;
 
 
 public class EntityManagerUtil {
@@ -21,7 +22,7 @@ public class EntityManagerUtil {
 				
 				.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
 				.setProperty("hibernate.connection.username", "postgres")
-				.setProperty("hibernate.connection.password", "ids0207")
+				.setProperty("hibernate.connection.password", "123456")
 				.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/selectfactory")
 				
 				.setProperty("hibernate.c3p0.min_size", "5")
@@ -38,6 +39,7 @@ public class EntityManagerUtil {
 		
 		cfg.addAnnotatedClass(Pessoa.class);
 		cfg.addAnnotatedClass(Endereco.class);
+		cfg.addAnnotatedClass(Telefone.class);
 		
 		sessions = cfg.buildSessionFactory();
 		
