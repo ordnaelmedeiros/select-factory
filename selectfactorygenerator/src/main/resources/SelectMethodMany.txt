@@ -1,0 +1,4 @@
+/*manyjoins*/
+	public {name}Join<{name_join}Select> many{name}{name_field}() {
+		return new {name}Join<{name_join}Select>(this);
+	}

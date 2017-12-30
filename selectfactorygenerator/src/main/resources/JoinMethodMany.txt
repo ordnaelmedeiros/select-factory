@@ -1,0 +1,4 @@
+/*manyjoins*/
+	public {name}Join<{name_join}Join<T>> many{name}{name_field}() {
+		return new {name}Join<{name_join}Join<T>>(this);
+	}

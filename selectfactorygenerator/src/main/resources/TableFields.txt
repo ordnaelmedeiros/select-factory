@@ -1,0 +1,16 @@
+package {package};
+
+public class {class_name}Fields<T> {
+	
+	private T parent;
+	
+	public T end() {
+		return parent;
+	}
+	
+	public {class_name}Fields(T parent) {
+		this.parent = parent;
+	}
+	
+/*field*/
+}

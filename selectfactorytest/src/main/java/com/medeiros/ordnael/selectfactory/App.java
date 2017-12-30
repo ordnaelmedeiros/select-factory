@@ -1,79 +1,37 @@
 package com.medeiros.ordnael.selectfactory;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.Month;
 
-import javax.persistence.EntityManager;
-
-import com.medeiros.ordnael.selectfactory.database.EntityManagerUtil;
+import com.medeiros.ordnael.selectfactory.compilados.BuildSelect;
+import com.medeiros.ordnael.selectfactorygenerator.SFGenerator;
 
 public class App {
 
 	public static void main(String[] args) {
 		
-		EntityManager em = new EntityManagerUtil().getEntityManager();
-		
-		
-		List<?> list = 
-				new SelectPessoa(em).distinct()
-				.join()
-					.telefone().left()//.notImplicit()
-						//.tipo().equal("fixo")
-					.end()
-				.end()
-				.where()
-					//.id().equal(1l)
-					.nome().contains("a")
-				.end()
-				.order()
-					.nome(1)
-				.end()
-				.list(PessoaFull.class);
-		
-		if (list!=null) {
-			list.forEach(p->{
-				System.out.println(p);
-			});
-		} else {
-			System.out.println("Lista Null");
+		try {
+			new SFGenerator(
+					"/home/leandro/GitHub/ordnaelmedeiros/select-factory/selectfactorytest/src/main/java/com/medeiros/ordnael/selectfactory/compilados",
+					"com.medeiros.ordnael.selectfactory.compilados",
+					"")
+			.create();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		/*
-		System.out.println("1");
-		List<Pessoa> list = 
-				new SelectPessoa(em)
-				.where()
-					.ID().equal(1l)
+		new BuildSelect()
+			.manyUploadBuild()
+				.on()
+					.user().equal(1l)
 				.end()
-				.list(Pessoa.class);
+			.end()
+			.where()
+				.complete().greater(LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0))
+			.end();
 		
-		list.forEach(p->System.out.println(p.getNome()));
-		
-		
-		System.out.println("\n2");
-		list = 
-				new SelectPessoa(em)
-				.where()
-					.ID().notEqual(2l)
-					.NOME().notEqual("Leandro")
-				.end()
-				.list(Pessoa.class);
-			
-		list.forEach(p->System.out.println(p.getNome()));
-		
-		System.out.println("\n3");
-		list = 
-				new SelectPessoa(em)
-				.join()
-					.endereco()
-					.end()
-				.end()
-				.where()
-					//.ID().notEqual(2l)
-					.NOME().notEqual("Leandro")
-				.end()
-				.list(Pessoa.class);
-			
-		list.forEach(p->System.out.println(p.getNome()));
-		*/
 	}
+	
+	
 }

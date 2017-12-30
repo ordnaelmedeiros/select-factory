@@ -1,0 +1,27 @@
+package {package};
+
+public class {name}Select {
+	
+	private String alias;
+	
+	public {name}Select() {
+	}
+	
+	public {name}Select alias(String alias) {
+		this.alias = alias;
+		return this;
+	}
+	
+	public String getAlias() {
+		return this.alias;
+	}
+	
+	public {name}Fields<{name}Select> where() {
+		return new {name}Fields<{name}Select>(this);
+	}
+	
+/*onejoins*/ 
+
+/*manyjoins*/
+	
+}

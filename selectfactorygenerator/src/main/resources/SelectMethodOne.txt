@@ -1,0 +1,4 @@
+/*onejoins*/
+	public {name_join}Join<{name}Select> one{name_field}() {
+		return new {name_join}Join<{name}Select>(this);
+	}

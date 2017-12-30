@@ -1,0 +1,37 @@
+package {package};
+
+public class {class_name}Field{field_name}<T> {
+	
+	private T parent;
+	
+	public T end() {
+		return parent;
+	}
+	
+	public {class_name}Field{field_name}(T parent) {
+		this.parent = parent;
+	}
+	
+	public T equal({type} value) {
+		return this.parent;
+	}
+	public T nEqual({type} value) {
+		return this.parent;
+	}
+	public T less({type} value) {
+		return this.parent;
+	}
+	public T lessEqual({type} value) {
+		return this.parent;
+	}
+	public T greater({type} value) {
+		return this.parent;
+	}
+	public T greaterEqual({type} value) {
+		return this.parent;
+	}
+	public T in({type} ...value) {
+		return this.parent;
+	}
+	
+}

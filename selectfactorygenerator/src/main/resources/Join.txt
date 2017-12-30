@@ -1,0 +1,33 @@
+package {package};
+
+public class {name}Join<T> {
+	
+	private T parent;
+	private String alias;
+	
+	public {name}Join(T parent) {
+		this.parent = parent;
+	}
+	
+	public T end() {
+		return parent;
+	}
+	
+	public {name}Join<T> alias(String alias) {
+		this.alias = alias;
+		return this;
+	}
+	
+	public String getAlias() {
+		return this.alias;
+	}
+	
+	public {name}Fields<{name}Join<T>> on() {
+		return new {name}Fields<{name}Join<T>>(this);
+	}
+	
+/*onejoins*/ 
+
+/*manyjoins*/
+	
+}

@@ -1,0 +1,4 @@
+/*field*/
+	public {field_class}<{class_name}Fields<T>> {nome_field} () {
+		return new {field_class}<{class_name}Fields<T>>(this);
+	}
